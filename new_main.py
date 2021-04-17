@@ -100,7 +100,7 @@ def main():
 
     # step 4: finding eigen vector
     eigen_vector, sum_of_col = find_eigen(criteria_arr)
-    lambda_max = np.multiply(eigen_vector, sum_of_col)
+    lambda_max = np.sum(np.multiply(eigen_vector, sum_of_col))
 
     print(lambda_max)
 

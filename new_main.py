@@ -55,15 +55,14 @@ def make_criteria_arr(ava):
         identity_mat[ava.index(_from), ava.index(_to)] = _value
         identity_mat[ava.index(_to), ava.index(_from)] = float(1/_value)
         print(identity_mat)
-        return identity_mat
+    return identity_mat
 
-
-    
-    
-                
-                    
-    
-
+def find_eigen(criteria):
+    sum_of_col = np.sum(criteria, axis=0)
+    eigen_vector = np.zeros_like(sum_of_col)
+    for i in range(0, criteria.shape[0]):
+        eigen_vector[i] = np.sum(np.divide(criteria[i], sum_of_col), axis=0)/criteria.shape[0]
+    return eigen_vector, sum_of_col 
 
 
 
@@ -97,6 +96,14 @@ def main():
 
     # step 3 : making 3d identity criteria array
     criteria_arr = make_criteria_arr(ava_criteria)
+    print(criteria_arr)
+
+    # step 4: finding eigen vector
+    eigen_vector, sum_of_col = find_eigen(criteria_arr)
+    lambda_max = np.sum(np.multiply(eigen_vector, sum_of_col))
+
+    print(lambda_max)
+
         
 
 

@@ -26,7 +26,6 @@ def clean_dataset(datas, atr):
     return np.array(cleaned_data)
 
 def make_criteria_arr(ava):
-    identity_mat = np.identity(3)
     ava_value = {
             1 : 'Sama Penting',
             2 : 'Nilai Tengah',
@@ -40,6 +39,7 @@ def make_criteria_arr(ava):
             }
 
     already_selected_criteria = list()
+    identity_mat = np.identity(3)
     for i in range(0, len(ava)):
         print('======================')
         _from = str(input('**choose criteria :'))
@@ -51,7 +51,20 @@ def make_criteria_arr(ava):
             print(key,value)
         _value = int(input('**Choose value:'))
         print('==SAVED==')
-        print(_from, _to, _value, ava_value[_value])
+        criteria_arr = np.tile(np.array(ava), (3,1))
+        identity_mat[ava.index(_from), ava.index(_to)] = _value
+        identity_mat[ava.index(_to), ava.index(_from)] = float(1/_value)
+        print(identity_mat)
+        return identity_mat
+
+
+    
+    
+                
+                    
+    
+
+
 
 
 def main():

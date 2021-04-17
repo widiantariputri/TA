@@ -101,8 +101,11 @@ def main():
     # step 4: finding eigen vector
     eigen_vector, sum_of_col = find_eigen(criteria_arr)
     lambda_max = np.sum(np.multiply(eigen_vector, sum_of_col))
-
-    print(lambda_max)
+    print(f'Lambda max : {lambda_max}')
+    CI = (lambda_max - len(ava_criteria))/(len(ava_criteria)-1)
+    print(f'CI : {CI}')
+    CR = CI/random_index[len(ava_criteria)]
+    print(f'CR : {CR}')
 
         
 

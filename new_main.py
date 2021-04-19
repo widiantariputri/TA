@@ -3,7 +3,7 @@
 # File              : new_main.py
 # Author            : Teguh Satya <teguhsatyadhr@gmail.com>
 # Date              : 17.04.2021
-# Last Modified Date: 17.04.2021
+# Last Modified Date: 19.04.2021
 # Last Modified By  : Teguh Satya <teguhsatyadhr@gmail.com>
 
 import numpy as np
@@ -25,20 +25,8 @@ def clean_dataset(datas, atr):
             cleaned_data.append(data)
     return np.array(cleaned_data)
 
-def make_criteria_arr(ava):
-    ava_value = {
-            1 : 'Sama Penting',
-            2 : 'Nilai Tengah',
-            3 : 'Sedikit Lebih Penting',
-            4 : 'Nilai Tengah',
-            5 : 'Lebih Penting',
-            6 : 'Nilai Tengah',
-            7 : 'Sangat Penting',
-            8 : 'Nilai Tengah',
-            9 : 'Mutlak Penting'
-            }
+def make_criteria_arr(ava, ava_value):
 
-    already_selected_criteria = list()
     identity_mat = np.identity(3)
     for i in range(0, len(ava)):
         print('======================')
@@ -64,11 +52,51 @@ def find_eigen(criteria):
         eigen_vector[i] = np.sum(np.divide(criteria[i], sum_of_col), axis=0)/criteria.shape[0]
     return eigen_vector, sum_of_col 
 
+def calculate_lambda(eigen, sum_of_col):
+    return np.sum(np.multiply(eigen, sum_of_col))
+
+def find_ci_cr(l_max, criteria,r_index):
+    ci = (l_max - len(criteria))/(len(criteria)-1) 
+    cr = ci/r_index[len(criteria)] 
+    return ci, cr
+
+
+def find_eigen_sub(sub, ava_value):
+    sub_iden = np.identity(len(sub))
+    for i in range(0,36):
+        print('======================')
+        print(sub)
+        _from = str(input(f'**{i+1. }choose criteria :'))
+        print(f'other criteria to choose :')
+        print([item for item in sub if _from not in item])
+        _to = str(input('**terhadap criteria :'))
+        print('**available value')
+        for key, value in ava_value.items():
+            print(key,value)
+        _value = int(input('**Choose value:'))
+        print('==SAVED==')
+        sub_arr = np.tile(np.array(sub), (3,1))
+        sub_iden[sub.index(_from), sub.index(_to)] = _value
+        sub_iden[sub.index(_to), sub.index(_from)] = float(1/_value)
+        print(sub_iden)
+    return sub_iden
+
 
 
 def main():
     # dependencies
     DATASET_DIR = 'DATASET/TEST.csv'
+    ava_value = {
+            1 : 'Sama Penting',
+            2 : 'Nilai Tengah',
+            3 : 'Sedikit Lebih Penting',
+            4 : 'Nilai Tengah',
+            5 : 'Lebih Penting',
+            6 : 'Nilai Tengah',
+            7 : 'Sangat Penting',
+            8 : 'Nilai Tengah',
+            9 : 'Mutlak Penting'
+            }
     __atr__ = 'SILVER BRACELETS'
     random_index = {
         1 : 0,
@@ -84,7 +112,7 @@ def main():
     }
     # available criteria made by system
     ava_criteria = ['KB', 'P', 'I']
-
+    sub_criteria = ['HB','BB','BC','JP','U','M','KC','DP','TK']
 
     # step 1 : reading dataset
     dataset = read_dataset(DATASET_DIR)
@@ -95,17 +123,24 @@ def main():
     print(f'cleaned data : {cl_dataset}')
 
     # step 3 : making 3d identity criteria array
-    criteria_arr = make_criteria_arr(ava_criteria)
+    criteria_arr = make_criteria_arr(ava_criteria, ava_value)
     print(criteria_arr)
 
     # step 4: finding eigen vector
     eigen_vector, sum_of_col = find_eigen(criteria_arr)
-    lambda_max = np.sum(np.multiply(eigen_vector, sum_of_col))
+    lambda_max = calculate_lambda(eigen_vector, sum_of_col)
     print(f'Lambda max : {lambda_max}')
-    CI = (lambda_max - len(ava_criteria))/(len(ava_criteria)-1)
-    print(f'CI : {CI}')
-    CR = CI/random_index[len(ava_criteria)]
-    print(f'CR : {CR}')
+    CI,CR = find_ci_cr(lambda_max, ava_criteria,random_index)
+    print(f'CI : {CI}, CR : {CR}')
+
+    # step 5 : finding eigen vector sub-criteria matrix
+    sub_eigen_mat = find_eigen_sub(sub_criteria,ava_value)
+    print(f'sub criteria array:\n {sub_eigen_mat}')
+    sub_eigen_vector, sub_sum = find_eigen(sub_eigen_mat)
+    sub_lambda_max = calculate_lambda(sub_eigen_mat, sub_sum)
+    print(f'Sub Lambda max : {sub_lambda_max}')
+    sub_CI,sub_CR = find_ci_cr(sub_lambda_max, sub_criteria,random_index)
+    print(f'Sub CI : {sub_CI}, Sub CR : {sub_CR}')
 
         
 

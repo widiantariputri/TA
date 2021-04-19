@@ -8,6 +8,7 @@
 
 import numpy as np
 import csv
+import math
 
 def read_dataset(ddir):
     dataset = list()
@@ -26,7 +27,6 @@ def clean_dataset(datas, atr):
     return np.array(cleaned_data)
 
 def make_criteria_arr(ava, ava_value):
-
     identity_mat = np.identity(3)
     for i in range(0, len(ava)):
         print('======================')
@@ -45,6 +45,25 @@ def make_criteria_arr(ava, ava_value):
         print(identity_mat)
     return identity_mat
 
+def get_criteria_mat(arr, ava_value):
+    identity_mat = np.identity(len(arr))
+    end_for = int((math.pow(len(arr),2)-3)/2)
+    for i in range(0, end_for):
+        print('======================')
+        _from = str(input('**choose criteria :'))
+        print(f'other criteria to choose :')
+        print([item for item in arr if _from not in item])
+        _to = str(input('**terhadap criteria :'))
+        print('**available value')
+        for key, value in ava_value.items():
+            print(key,value)
+        _value = int(input('**Choose value:'))
+        print('==SAVED==')
+        criteria_arr = np.tile(np.array(arr), (3,1))
+        identity_mat[arr.index(_from), arr.index(_to)] = _value
+        identity_mat[arr.index(_to), arr.index(_from)] = float(1/_value)
+    return identity_mat
+
 def find_eigen(criteria):
     sum_of_col = np.sum(criteria, axis=0)
     eigen_vector = np.zeros_like(sum_of_col)
@@ -59,28 +78,6 @@ def find_ci_cr(l_max, criteria,r_index):
     ci = (l_max - len(criteria))/(len(criteria)-1) 
     cr = ci/r_index[len(criteria)] 
     return ci, cr
-
-
-def find_eigen_sub(sub, ava_value):
-    sub_iden = np.identity(len(sub))
-    for i in range(0,36):
-        print('======================')
-        print(sub)
-        _from = str(input(f'**{i+1. }choose criteria :'))
-        print(f'other criteria to choose :')
-        print([item for item in sub if _from not in item])
-        _to = str(input('**terhadap criteria :'))
-        print('**available value')
-        for key, value in ava_value.items():
-            print(key,value)
-        _value = int(input('**Choose value:'))
-        print('==SAVED==')
-        sub_arr = np.tile(np.array(sub), (3,1))
-        sub_iden[sub.index(_from), sub.index(_to)] = _value
-        sub_iden[sub.index(_to), sub.index(_from)] = float(1/_value)
-        print(sub_iden)
-    return sub_iden
-
 
 
 def main():
@@ -123,37 +120,28 @@ def main():
     print(f'cleaned data : {cl_dataset}')
 
     # step 3 : making 3d identity criteria array
-    criteria_arr = make_criteria_arr(ava_criteria, ava_value)
+    criteria_arr = get_criteria_mat(ava_criteria, ava_value)
     print(criteria_arr)
 
     # step 4: finding eigen vector
     eigen_vector, sum_of_col = find_eigen(criteria_arr)
+    print(f'eigen vector : \n{eigen_vector}\nsum of column: \n{sum_of_col}')
     lambda_max = calculate_lambda(eigen_vector, sum_of_col)
     print(f'Lambda max : {lambda_max}')
     CI,CR = find_ci_cr(lambda_max, ava_criteria,random_index)
     print(f'CI : {CI}, CR : {CR}')
 
     # step 5 : finding eigen vector sub-criteria matrix
-    sub_eigen_mat = find_eigen_sub(sub_criteria,ava_value)
+    sub_eigen_mat = get_criteria_mat(sub_criteria,ava_value)
     print(f'sub criteria array:\n {sub_eigen_mat}')
     sub_eigen_vector, sub_sum = find_eigen(sub_eigen_mat)
+    print(f'sub eigen vector : \n{sub_eigen_vector}\nsub sum of column: \n{sub_sum}')
     sub_lambda_max = calculate_lambda(sub_eigen_mat, sub_sum)
     print(f'Sub Lambda max : {sub_lambda_max}')
     sub_CI,sub_CR = find_ci_cr(sub_lambda_max, sub_criteria,random_index)
     print(f'Sub CI : {sub_CI}, Sub CR : {sub_CR}')
 
         
-
-
-
-    
-
-
-
-
-
-
-
 
 if __name__ == '__main__':
     main()

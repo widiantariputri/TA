@@ -22,7 +22,13 @@ def main():
     DDIR = 'DATASET/TEST.csv'
     SURVEY_DATA = 'DATASET/RESPONDEN.csv'
     anp = ANP(DDIR,SURVEY_DATA)
-    # dataset = anp.get_dataset()
+
+    dataset = anp.get_dataset()
+    gem = anp.get_gm()
+    matrix = anp.get_matrix()
+    print(f'matrix:\n{matrix}')
+
+
     
     # saw = SAW()
 

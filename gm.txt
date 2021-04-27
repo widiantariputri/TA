@@ -1,0 +1,21 @@
+Kriteria kecepatan transaksi dengan biaya bahan baku 3.24037034920393
+Kriteria kecepatan transaksi dengan ukuran 1.8708286933869707
+Kriteria kecepatan transaksi dengan berat 1.7320508075688772
+Kriteria kecepatan transaksi dengan harga 5.291502622129181
+Kriteria kecepatan transaksi dengan berat campuran ( campuran emas) 3.0
+Kriteria kecepatan transaksi dengan jumlah stone (permata) yang digunakan 3.6742346141747673
+Kriteria biaya bahan baku dengan ukuran 2.449489742783178
+Kriteria biaya bahan baku dengan berat 3.4641016151377544
+Kriteria biaya bahan baku dengan harga 4.183300132670378
+Kriteria biaya bahan baku dengan berat campuran (emas) 4.58257569495584
+Kriteria biaya bahan baku dengan jumlah stone (permata) yang digunakan 2.6457513110645907
+Kriteria ukuran dengan berat 2.0
+Kriteria ukuran dengan harga 3.4641016151377544
+Kriteria ukuran dengan berat campuran (emas) 3.4641016151377544
+Kriteria ukuran dengan jumlah stone (permata) yang digunakan 2.8284271247461903
+Kriteria berat dengan harga 4.949747468305833
+Kriteria berat dengan berat campuran (emas) 2.0
+Kriteria berat dengan jumlah stone (permata) yang digunakan 4.0
+Kriteria harga dengan berat campuran (emas) 4.898979485566356
+Kriteria harga dengan jumlah stone (permata) yang digunakan 4.47213595499958
+Kriteria berat campuran (emas) dengan jumlah stone (permata) yang digunakan 1.8708286933869707

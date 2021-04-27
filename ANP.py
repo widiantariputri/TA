@@ -17,8 +17,8 @@ import math
 import numpy as np
 
 class ANP:
-    def __init__(self):
-        self.ava_value = {
+    def __init__(self, ddir, survey_data):
+        self.criteria_value = {
                 1 : 'Sama Penting',
                 2 : 'Nilai Tengah',
                 3 : 'Sedikit Lebih Penting',
@@ -41,9 +41,9 @@ class ANP:
             9 : 1.45,
             10 : 1.49
         }
-        self.__atr__ = 'SILVER BRACELETS'
-        self.ava_criteria = ['KB', 'P', 'I']
-        self.sub_criteria = ['HB','BB','BC','JP','U','M','KC','DP','TK']
+        self.attr = 'SILVER BRACELETS'
+        self.dataset = self.readCleanData(ddir)
+        self.geo_mean = self.calc_geo_mean(survey_data)
 
 
 
@@ -68,7 +68,32 @@ class ANP:
                 
         for da in data:
             if not self.contain_zero(da):
-                if da[2] == 'SILVER BRACELETS':
+                if da[2] == self.attr:
                     cl_data.append(da[1:])
-        return np.array(cl_data)
+        cl_data = np.array(cl_data)
+        return cl_data
+
+
+    def get_dataset(self):
+        return self.dataset
+
+    def calc_geo_mean(self,survey):
+        survey_list = list()
+        gm = dict()
+        with open(survey, 'r') as sur:
+            survey_data = csv.reader(sur)
+            for survey in survey_data:
+                survey_list.append(survey)
+        survey_list = np.array(survey_list)
+
+        survey_label = survey_list[1:,0]
+        survey_value = np.asfarray(survey_list[1:,1:], int)
+        survey_gm = np.sqrt(np.prod(survey_value, axis=1)/len(survey_value[0]))
+
+        for i in range(0, len(survey_label)):
+            gm[survey_label[i]] = survey_gm[i]
+        
+        return gm
+        
+
 

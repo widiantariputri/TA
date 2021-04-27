@@ -20,8 +20,10 @@ A main portal to access all of the classes.
 
 def main():
     DDIR = 'DATASET/TEST.csv'
-    dataset = ANP().readCleanData(DDIR)
-    print(dataset)
+    SURVEY_DATA = 'DATASET/RESPONDEN.csv'
+    anp = ANP(DDIR,SURVEY_DATA)
+    # dataset = anp.get_dataset()
+    
     # saw = SAW()
 
 

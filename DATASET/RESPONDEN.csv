@@ -1,8 +1,23 @@
 kriteria,resp 1,resp 2
-kecepatan transaksi,9,3
-biaya bahan baku,5,2
-ukuran,8,1
-berat ,7,5
-harga,8,7
-berat campuran emas,6,5
-jumlah stone yang digunakan,7,3
+Kriteria kecepatan transaksi dengan biaya bahan baku,7,3
+Kriteria kecepatan transaksi dengan ukuran,7,1
+Kriteria kecepatan transaksi dengan berat,6,1
+Kriteria kecepatan transaksi dengan harga,8,7
+Kriteria kecepatan transaksi dengan berat campuran ( campuran emas),9,2
+Kriteria kecepatan transaksi dengan jumlah stone (permata) yang digunakan,9,3
+Kriteria biaya bahan baku dengan ukuran,6,2
+Kriteria biaya bahan baku dengan berat,8,3
+Kriteria biaya bahan baku dengan harga,5,7
+Kriteria biaya bahan baku dengan berat campuran (emas),6,7
+Kriteria biaya bahan baku dengan jumlah stone (permata) yang digunakan,7,2
+Kriteria ukuran dengan berat,9,1
+Kriteria ukuran dengan berat,8,1
+Kriteria ukuran dengan harga,8,3
+Kriteria ukuran dengan berat campuran (emas),8,3
+Kriteria ukuran dengan jumlah stone (permata) yang digunakan,8,2
+Kriteria berat dengan harga,7,7
+Kriteria berat dengan berat campuran (emas),8,1
+Kriteria berat dengan jumlah stone (permata) yang digunakan,8,4
+Kriteria harga dengan berat campuran (emas),8,6
+Kriteria harga dengan jumlah stone (permata) yang digunakan,8,5
+Kriteria berat campuran (emas) dengan jumlah stone (permata) yang digunakan,7,1

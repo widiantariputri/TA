@@ -115,7 +115,23 @@ class ANP:
                     else :
                         iden_mat[i][j] = val_[((j%21)-1)]
                         # iden_mat[i][j]= 25
-
         return iden_mat
+
+
+    def get_eigen(self, mat):
+        sum_of_col = np.sum(mat, axis=0)
+        eigen_vector = np.zeros_like(sum_of_col)
+        for i in range(0, mat.shape[0]):
+            eigen_vector[i] = np.sum(np.divide(mat[i], sum_of_col), axis=0)/mat.shape[0]
+        return eigen_vector, sum_of_col
+
+
+    def get_lambda(self, eigen, _sum):
+        return np.sum(np.multiply(eigen, _sum))
+
+    def get_ci_cr(self,l_max, mat):
+        ci = (l_max - len(mat))/(len(mat)-1)
+        cr = ci/self.random_index[len(mat)]
+        return ci, cr
 
 

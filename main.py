@@ -19,8 +19,10 @@ A main portal to access all of the classes.
 '''
 
 def main():
-    anp = ANP()
-    saw = SAW()
+    DDIR = 'DATASET/TEST.csv'
+    dataset = ANP().readCleanData(DDIR)
+    print(dataset)
+    # saw = SAW()
 
 
 

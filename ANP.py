@@ -94,6 +94,28 @@ class ANP:
             gm[survey_label[i]] = survey_gm[i]
         
         return gm
+
+    def get_gm(self):
+        return self.geo_mean
+
+
+    def get_matrix(self):
+        val_ = list()
+        for key, value in self.geo_mean.items():
+            print(key, value)
+            val_.append(value)
+        iden_mat = np.identity(7)
         
+        for i in range(0, len(iden_mat)):
+            for j in range(0, len(iden_mat[i])):
+                if i!=j:
+                    if i > j:
+                        iden_mat[i][j] = 1/iden_mat[0][j+1]
+                        # iden_mat[i][j] = 21
+                    else :
+                        iden_mat[i][j] = val_[((j%21)-1)]
+                        # iden_mat[i][j]= 25
+
+        return iden_mat
 
 

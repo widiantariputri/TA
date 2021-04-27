@@ -1,11 +1,3 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-# File              : new_main.py
-# Author            : Teguh Satya <teguhsatyadhr@gmail.com>
-# Date              : 17.04.2021
-# Last Modified Date: 19.04.2021
-# Last Modified By  : Teguh Satya <teguhsatyadhr@gmail.com>
-
 import numpy as np
 import csv
 
@@ -26,7 +18,6 @@ def clean_dataset(datas, atr):
     return np.array(cleaned_data)
 
 def make_criteria_arr(ava, ava_value):
-
     identity_mat = np.identity(3)
     for i in range(0, len(ava)):
         print('======================')
@@ -142,19 +133,7 @@ def main():
     sub_CI,sub_CR = find_ci_cr(sub_lambda_max, sub_criteria,random_index)
     print(f'Sub CI : {sub_CI}, Sub CR : {sub_CR}')
 
-        
-
-
-
     
-
-
-
-
-
-
-
-
 if __name__ == '__main__':
     main()
 

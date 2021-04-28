@@ -63,13 +63,12 @@ class ANP:
         with open(ddir, 'r') as csv_file:
             dt_reader = csv.reader(csv_file, delimiter=",")
             for dt in dt_reader:
-                # print(dt)
                 data.append(dt)
                 
         for da in data:
             if not self.contain_zero(da):
-                if da[2] == self.attr:
-                    cl_data.append(da[1:])
+                if da[0] == self.attr:
+                    cl_data.append(da[0:])
         cl_data = np.array(cl_data)
         return cl_data
 
@@ -126,6 +125,27 @@ class ANP:
             eigen_vector[i] = np.sum(np.divide(mat[i], sum_of_col), axis=0)/mat.shape[0]
         return eigen_vector, sum_of_col
 
+    def get_eigen_alter(self):
+        eigen_alter = list()
+        trim_eigen = list()
+        trim_dataset = self.dataset[:,2:].astype(float)
+
+
+        for i in range(0, len(trim_dataset[0])):
+            trim_trim = trim_dataset[:,i]
+            trim_sum = np.sum(trim_trim)
+            trim_eigen.append(trim_sum)
+        # print(trim_eigen)
+        trim_eigen = np.array(trim_eigen)
+
+        for i in range(0, len(self.dataset)):
+            head_ = self.dataset[i,2:].astype(float)
+            eigen_alter.append(np.divide(head_, trim_eigen))
+
+        return np.array(eigen_alter)
+        
+        
+
 
     def get_lambda(self, eigen, _sum):
         return np.sum(np.multiply(eigen, _sum))
@@ -134,5 +154,6 @@ class ANP:
         ci = (l_max - len(mat))/(len(mat)-1)
         cr = ci/self.random_index[len(mat)]
         return ci, cr
+
 
 

@@ -85,10 +85,9 @@ class ANP:
             for survey in survey_data:
                 survey_list.append(survey)
         survey_list = np.array(survey_list)
-
         survey_label = survey_list[1:,0]
         survey_value = np.asfarray(survey_list[1:,1:], int)
-        survey_gm = np.sqrt(np.prod(survey_value, axis=1)/len(survey_value[0]))
+        survey_gm = np.power(np.prod(survey_value, axis=1),(1./len(survey_value[0])))
 
         for i in range(0, len(survey_label)):
             gm[survey_label[i]] = survey_gm[i]
@@ -101,20 +100,22 @@ class ANP:
 
     def get_matrix(self):
         val_ = list()
+        val_index = 0
         for key, value in self.geo_mean.items():
-            print(key, value)
             val_.append(value)
         iden_mat = np.identity(7)
+
         
         for i in range(0, len(iden_mat)):
             for j in range(0, len(iden_mat[i])):
                 if i!=j:
                     if i > j:
-                        iden_mat[i][j] = 1/iden_mat[0][j+1]
+                        iden_mat[i][j] = 1/iden_mat[j][i]
                         # iden_mat[i][j] = 21
                     else :
-                        iden_mat[i][j] = val_[((j%21)-1)]
+                        iden_mat[i][j] = val_[((val_index%21))]
                         # iden_mat[i][j]= 25
+                        val_index+=1
         return iden_mat
 
 

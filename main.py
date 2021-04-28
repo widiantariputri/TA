@@ -26,7 +26,9 @@ def main():
     dataset = anp.get_dataset()
     gem = anp.get_gm()
     matrix = anp.get_matrix()
-
+    print(f'matrix : {matrix}')
+    
+    ''' 
     eigen_vector, anp_sum_col = anp.get_eigen(matrix)
     print(f'eigen vector :\n {eigen_vector}\nsum = {anp_sum_col}')
 
@@ -35,7 +37,7 @@ def main():
 
     anp_ci, anp_cr = anp.get_ci_cr( lambda_max, matrix)
     print(f'CI : {anp_ci}, CR: {anp_cr}')
-
+    '''
 
     
     # saw = SAW()

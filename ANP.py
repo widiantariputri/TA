@@ -35,9 +35,7 @@ class ANP:
         }
         self.attr = 'SILVER BRACELETS'
         self.dataset = self.readCleanData(ddir)
-        self.geo_mean = self.calc_geo_mean(survey_data)
-
-
+        self.geo_mean, self.cluster_data, self.cluster_gm = self.calc_geo_mean(survey_data)
 
     def contain_zero(self,sub):
         zero_count = 0
@@ -62,7 +60,10 @@ class ANP:
                 if da[0] == self.attr:
                     cl_data.append(da[0:])
         cl_data = np.array(cl_data)
-        return cl_data
+        print(f'cl_data : {cl_data}')
+
+
+        return cl_data 
 
 
     def get_dataset(self):
@@ -71,22 +72,39 @@ class ANP:
     def calc_geo_mean(self,survey):
         survey_list = list()
         gm = dict()
+        cluster_gm_dict = dict()
         with open(survey, 'r') as sur:
             survey_data = csv.reader(sur)
             for survey in survey_data:
                 survey_list.append(survey)
         survey_list = np.array(survey_list)
+        
+        # splitting the data into cluster matrix
+        cluster_data = survey_list[-3:]
+        survey_list = survey_list[:-3]
+
         survey_label = survey_list[1:,0]
+        cluster_label = cluster_data[:,0]
+
         survey_value = np.asfarray(survey_list[1:,1:], int)
+        cluster_value = np.asfarray(cluster_data[:,1:], int)
+
         survey_gm = np.power(np.prod(survey_value, axis=1),(1./len(survey_value[0])))
+        cluster_gm = np.power(np.prod(cluster_value, axis=1),(1./len(cluster_value[0])))
 
         for i in range(0, len(survey_label)):
             gm[survey_label[i]] = survey_gm[i]
-        
-        return gm
+
+        for i in range(0, len(cluster_label)):
+            cluster_gm_dict[cluster_label[i]] = cluster_gm[i]
+
+        return gm, cluster_data, cluster_gm_dict 
 
     def get_gm(self):
         return self.geo_mean
+
+    def get_cluster_gm(self):
+        return self.cluster_gm
 
 
     def get_matrix(self):
@@ -96,6 +114,25 @@ class ANP:
             val_.append(value)
         iden_mat = np.identity(7)
 
+        
+        for i in range(0, len(iden_mat)):
+            for j in range(0, len(iden_mat[i])):
+                if i!=j:
+                    if i > j:
+                        iden_mat[i][j] = 1/iden_mat[j][i]
+                        # iden_mat[i][j] = 21
+                    else :
+                        iden_mat[i][j] = val_[((val_index%21))]
+                        # iden_mat[i][j]= 25
+                        val_index+=1
+        return iden_mat
+
+    def get_cluster_matrix(self):
+        val_ = list()
+        val_index = 0
+        for key, value in self.cluster_gm.items():
+            val_.append(value)
+        iden_mat = np.identity(3)
         
         for i in range(0, len(iden_mat)):
             for j in range(0, len(iden_mat[i])):

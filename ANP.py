@@ -173,7 +173,6 @@ class ANP:
 
         return np.array(eigen_alter)
         
-
     def get_lambda(self, eigen, _sum):
         return np.sum(np.multiply(eigen, _sum))
 
@@ -181,8 +180,6 @@ class ANP:
         ci = (l_max - len(mat))/(len(mat)-1)
         cr = ci/self.random_index[len(mat)]
         return ci, cr
-
-
 
     def get_unweighted_mat(self,mat, alter):
         # buat matrix besar berukuran 14
@@ -193,12 +190,11 @@ class ANP:
 
         for i in range(0, len(big_mat)):
             for j in range(0, len(big_mat[i])):
-                if i < 6:
-                    if j < 7 :
+                if i < (len(alter)):
+                    if j < (len(mat)) :
                         big_mat[i][j] = 0
                     else:
-                        # big_mat[i][j] = 21
-                        big_mat[i][j] = 1/alter[j-7][i]
+                        big_mat[i][j] = 1/alter[j-(len(mat))][i]
                 else:
                     if j < 7:
                         big_mat[i][j] = alter[i-7][j-7]

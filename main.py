@@ -51,8 +51,10 @@ def main():
     cluster_ci, cluster_cr = anp.get_ci_cr( cluster_lambda_max, cluster_mat)
     print(f'CI : {cluster_ci}, CR: {cluster_cr}')
 
-    # cluster_eigen_alter = anp.get_eigen_alter()
-    # print(f'eigen alternatif : {eigen_alter}')
+    # unweighted matrix
+    unweighted_mat = anp.get_unweighted_mat(matrix,eigen_alter)
+
+
 
 
     

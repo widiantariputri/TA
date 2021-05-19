@@ -196,8 +196,8 @@ class ANP:
                     else:
                         big_mat[i][j] = 1/alter[j-(len(mat))][i]
                 else:
-                    if j < 7:
-                        big_mat[i][j] = alter[i-7][j-7]
+                    if j < (len(mat)):
+                        big_mat[i][j] = alter[i-(len(mat))][j-(len(mat))]
                         
 
         print(big_mat)

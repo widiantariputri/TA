@@ -55,10 +55,9 @@ def main():
     unweighted_mat = anp.get_unweighted_mat(matrix,eigen_alter)
 
 
-
+    saw = SAW()
 
     
-    # saw = SAW()
 
 
 

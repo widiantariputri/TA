@@ -54,7 +54,7 @@ class ANP:
             dt_reader = csv.reader(csv_file, delimiter=",")
             for dt in dt_reader:
                 data.append(dt)
-                
+
         for da in data:
             if not self.contain_zero(da):
                 if da[0] == self.attr:
@@ -63,7 +63,7 @@ class ANP:
         print(f'cl_data : {cl_data}')
 
 
-        return cl_data 
+        return cl_data
 
 
     def get_dataset(self):
@@ -78,7 +78,7 @@ class ANP:
             for survey in survey_data:
                 survey_list.append(survey)
         survey_list = np.array(survey_list)
-        
+
         # splitting the data into cluster matrix
         cluster_data = survey_list[-3:]
         survey_list = survey_list[:-3]
@@ -98,7 +98,7 @@ class ANP:
         for i in range(0, len(cluster_label)):
             cluster_gm_dict[cluster_label[i]] = cluster_gm[i]
 
-        return gm, cluster_data, cluster_gm_dict 
+        return gm, cluster_data, cluster_gm_dict
 
     def get_gm(self):
         return self.geo_mean
@@ -114,7 +114,7 @@ class ANP:
             val_.append(value)
         iden_mat = np.identity(7)
 
-        
+
         for i in range(0, len(iden_mat)):
             for j in range(0, len(iden_mat[i])):
                 if i!=j:
@@ -133,7 +133,7 @@ class ANP:
         for key, value in self.cluster_gm.items():
             val_.append(value)
         iden_mat = np.identity(3)
-        
+
         for i in range(0, len(iden_mat)):
             for j in range(0, len(iden_mat[i])):
                 if i!=j:
@@ -172,7 +172,7 @@ class ANP:
             eigen_alter.append(np.divide(head_, trim_eigen))
 
         return np.array(eigen_alter)
-        
+
     def get_lambda(self, eigen, _sum):
         return np.sum(np.multiply(eigen, _sum))
 
@@ -198,8 +198,8 @@ class ANP:
                 else:
                     if j < (len(mat)):
                         big_mat[i][j] = alter[i-(len(mat))][j-(len(mat))]
-                        
+
 
         print(big_mat)
-        
+
 

@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% block title %}
+Sistem Rekomendasi ANP-SAW
+{% endblock %}
+
+{% block content %}
+<div class="min-vh-100 d-flex align-items-center justify-content-center">
+<div class="container">
+    <div class="px-4 py-5 my-5 text-center">
+        <h1 class="display-5 fw-bold">Selamat Datang</h1>
+        <div class="col-lg-6 mx-auto">
+            <p class="lead">Terima kasih telah mengunjungi situs <b>KESALI</b> (Kreasi Slaka Bali). <br> Sudahkah Anda
+                tau barang terbaik minggu ini? <br> Upload data dan dapatkan hasil yang Anda inginkan</p>
+            <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+                <a href="{{ url_for('upload_data') }}" type="button" class="btn btn-primary btn-lg px-4 gap-3">Upload Data</a>
+                <a href="#cara-kerja" type="button" class="btn btn-outline-secondary btn-lg px-4">Cara Kerja</a>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<div class="bg-light" id="cara-kerja">
+    <div class="container pt-5 mt-5">
+        <h5 class=" fw-bold text-center">Bagaimana cara kerja sistem?</h5>
+        <div class="row g-4 py-5 row-cols-1 row-cols-lg-3">
+            <div class="col d-flex align-items-start">
+                <div class="icon-square bg-light text-dark flex-shrink-0 me-3">
+                    <svg class="bi" width="1em" height="3em">
+                        <i class="fas fa-upload" style="font-size:1.5em"></i>
+                    </svg>
+                </div>
+                <div>
+                    <h3>Upload Data</h3>
+                    <p>Upload data dengan format .csv</p>
+                </div>
+            </div>
+            <div class="col d-flex align-items-start">
+                <div class="icon-square bg-light text-dark flex-shrink-0 me-3">
+                    <svg class="bi" width="1em" height="3em">
+                        <i class="fas fa-calculator" style="font-size:1.5em"></i>
+                    </svg>
+                </div>
+                <div>
+                    <h3>Perhitungan</h3>
+                    <p>Sistem akan melakukan perhitungan menggunakan metode ANP-SAW</p>
+                </div>
+            </div>
+            <div class="col d-flex align-items-start">
+                <div class="icon-square bg-light text-dark flex-shrink-0 me-3">
+                    <svg class="bi" width="1em" height="3em">
+                        <i class="fas fa-poll" style="font-size:1.5em"></i>
+                    </svg>
+                </div>
+                <div>
+                    <h3>Hasil</h3>
+                    <p>Sistem akan menampilkan hasil perhitungan</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="px-4 py-5 my-5 text-center">
+        <h1 class="display-5 mb-4 fw-bold">Tentang</h1>
+        <div class="col-lg-6 mx-auto">
+            <p class="lead">Pekerjaan dalam hal menenntukan produk terbaik akan dimudahkan bersama kami. Analisis dilakukan menggunakan metode pendukung yang mampu menghasilkan rekomendasi terbaik untukmu</p>
+        </div>
+    </div>
+</div>
+{% endblock %}

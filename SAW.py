@@ -8,7 +8,6 @@ import numpy as np
 import pandas as pd
 class SAW:
     def __init__(self):
-        print('Welcome to SAW\n')
         # constant
         BOBOT_ALT = pd.read_csv('DATASET/TEST.csv')
         BOBOT_CRITERIA = [3,2,3,4,4,4,3]
@@ -22,15 +21,25 @@ class SAW:
         self.total_weight = self.total_weight.reshape(6,1)
 
         self.bobot_alt = np.append(self.bobot_raw, self.total_weight, axis=1)
-        
-        self.ranked_bobot = self.get_ranked_weight(self.bobot_alt)
-        print(f'sorted :\n{self.ranked_bobot}')
 
-    
+        self.ranked_bobot = self.get_ranked_weight(self.bobot_alt)
+
+    def get_hasil(self):
+        obj = dict()
+        label = ['Nama', 'Kode', 'Berat Campuran', 'Jumlah', 'Kecepatan Transaksi', 'Biaya', 'Ukuran', 'Berat', 'Harga (USD)', 'Total Harga']
+        bobot = self.ranked_bobot
+
+        for i in range(0, len(bobot)):
+            obj[str(i)] = dict()
+            for j in range(0, len(bobot[i])):
+                obj[str(i)][label[j]] = bobot[i][j]
+        return obj
+
+
     def clean_data(self, bobot):
         '''
             Cleaning dataset
-            receive pandas dataframe as a parameter 
+            receive pandas dataframe as a parameter
         '''
         bobot =  np.array(bobot[bobot['JENIS'] == 'SILVER BRACELETS'])
         return bobot[:,2:], bobot
@@ -50,7 +59,7 @@ class SAW:
                 min_max_arr.append(min(bobot_alt[:,i]))
             else:
                 min_max_arr.append(max(bobot_alt[:,i]))
-    
+
         return min_max_arr
 
 
@@ -66,7 +75,7 @@ class SAW:
             else:
                 mat = np.tile(minmax[i],len(bobot))
                 norm_mat[:,i] = mat/bobot[:,i]
-        
+
         return norm_mat
 
 

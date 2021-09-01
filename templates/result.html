@@ -22,10 +22,26 @@ Sistem Rekomendasi ANP-SAW
     </div>
     <table class="table">
         <thead class="table-light">
-          ...
+            <th> No. </th>
+            {% for key in hasil['0'].keys() %}
+            <th>{{ key }} </th>
+            {% endfor %}
         </thead>
         <tbody>
-          ...
+            {% for key, val in hasil.items() %}
+            <tr>
+                <td>
+                    {{key}}
+                </td>
+                {% for item in val.values() %}
+                    <td>
+                    {{item }}
+                    </td>
+                {% endfor %}
+
+            </tr>
+            {% endfor %}
+
         </tbody>
     </table>
 </div>

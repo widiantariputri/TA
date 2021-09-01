@@ -8,14 +8,23 @@ Sistem Rekomendasi ANP-SAW
     <div class="px-4 pt-5 my-5 text-center">
         <h1 class="display-5 mb-4 fw-bold">Upload Data</h1>
         <div class="col-lg-6 mx-auto">
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+            {% for ms in messages %}
+                <div class="alert alert-danger" role="alert">
+                    {{ ms }}
+                </div>
+            {% endfor %}
+            {% endif %}
+            {% endwith %}
             <p class="lead">Pilih jenis konsumen lalu upload data dengan format yang telah ditentukan dan temukan
                 rekomendasi dari hasil analisis</p>
         </div>
     </div>
     <div class="row px-4 my-5 text-center justify-content-center">
-        <form class="col-md-6 text-center">
+        <form class="col-md-6 text-center" method='POST' enctype='multipart/form-data' >
             <div class="mb-3">
-                <input class="form-control" type="file" id="formFile">
+                <input class="form-control" name='file' type="file" id="formFile">
                 <small>*format file csv</small>
             </div>
             <button type="submit" class="btn btn-primary">Submit</button>

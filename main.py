@@ -12,7 +12,7 @@ A main portal to access all of the classes.
 '''
 
 def main():
-    DDIR = 'DATASET/TEST.csv'
+    DDIR = 'DATASET/CSV.csv'
     SURVEY_DATA = 'DATASET/ANOTHER_RESPONDEN.csv'
 
     anp = ANP(DDIR,SURVEY_DATA)
@@ -48,7 +48,6 @@ def main():
 
     saw = SAW()
     hasil_saw = saw.get_hasil()
-    print(hasil_saw)
 
 
 

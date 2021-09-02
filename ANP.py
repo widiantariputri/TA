@@ -8,6 +8,7 @@ import csv
 import math
 import numpy as np
 
+
 class ANP:
     def __init__(self, ddir, survey_data):
         self.criteria_value = {
@@ -60,8 +61,7 @@ class ANP:
                 if da[0] == self.attr:
                     cl_data.append(da[0:])
         cl_data = np.array(cl_data)
-        print(f'cl_data : {cl_data}')
-
+        
 
         return cl_data
 
@@ -186,20 +186,18 @@ class ANP:
         mat_size = len(mat)+len(alter)
         big_mat = np.zeros((mat_size, mat_size))
         print(f'matrix : {mat}\nalter : {alter}')
-        print(f'array besar : {big_mat}')
+
+        for i in range(0, len(mat)):
+            for j in range(0, len(mat)):
+                big_mat[i][j] = 0
+        for i in range(len(mat), len(big_mat[0])):
+            for j in range(0, len(alter[0])):
+                big_mat[i][j] = alter[i-7][j]
+
 
         for i in range(0, len(big_mat)):
-            for j in range(0, len(big_mat[i])):
-                if i < (len(alter)):
-                    if j < (len(mat)) :
-                        big_mat[i][j] = 0
-                    else:
-                        big_mat[i][j] = 1/alter[j-(len(mat))][i]
-                else:
-                    if j < (len(mat)):
-                        big_mat[i][j] = alter[i-(len(mat))][j-(len(mat))]
-
-
-        print(big_mat)
-
+            for j in range(8, len(big_mat)):
+                # 0,8 ->8, 0
+                big_mat[i][j] = 1/big_mat[j][i]
+        print(f'big :\n{big_mat}')
 

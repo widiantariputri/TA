@@ -25,7 +25,9 @@ def home():
     return render_template('home.html')
 
 
-
+@app.route("/bobot")
+def bot_kepentingan():
+    return render_template("bobot.html")
 
 @app.route("/upload", methods=['GET', 'POST'])
 def upload_data():

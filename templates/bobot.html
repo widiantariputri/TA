@@ -1,0 +1,128 @@
+{% extends 'base.html' %}
+{% block title %}
+Sistem Rekomendasi ANP-SAW
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="px-4 pt-5 my-5 text-center">
+        <h1 class="display-5 mb-4 fw-bold">Bobot Kepentingan</h1>
+        <div class="col-lg-6 mx-auto">
+            <p class="lead">Isilah bobot kriteria dan sub- kriteria sesuai dengan tingkat kepentingan</p>
+        </div>
+    </div>
+    <div class="bot_kriteria">
+        <h5>Bobot Kepentingan Kriteria</h5>
+        <table class="tabel_kriteria">
+            <tbody>
+                <tr>
+                    <td>
+                        <select class="form-select form-select-sm" aria-label=".form-select-sm example">
+                            <option selected></option>
+                            <option value="1">Measurable</option>
+                            <option value="2">Capital</option>
+                        </select>
+                    </td>
+                    <td>
+                        <label for="customRange2" class="form-label"></label>
+                        <input type="range" class="form-range" min="1" max="9" id="customRange2">
+                    </td>
+                    <td>
+                        <select class="form-select form-select-sm" aria-label=".form-select-sm example">
+                            <option selected></option>
+                            <option value="1">Measurable</option>
+                            <option value="2">Capital</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <select class="form-select form-select-sm" aria-label=".form-select-sm example">
+                            <option selected></option>
+                            <option value="1">Measurable</option>
+                            <option value="2">Alternative</option>
+                        </select>
+                    </td>
+                    <td>
+                        <label for="customRange2" class="form-label"></label>
+                        <input type="range" class="form-range" min="1" max="9" id="customRange2">
+                    </td>
+                    <td>
+                        <select class="form-select form-select-sm" aria-label=".form-select-sm example">
+                            <option selected></option>
+                            <option value="1">Measurable</option>
+                            <option value="2">Alternative</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <select class="form-select form-select-sm" aria-label=".form-select-sm example">
+                            <option selected></option>
+                            <option value="1">Capital</option>
+                            <option value="2">Alternative</option>
+                        </select>
+                    </td>
+                    <td>
+                        <label for="customRange2" class="form-label"></label>
+                        <input type="range" class="form-range" min="1" max="9" id="customRange2">
+                    </td>
+                    <td>
+                        <select class="form-select form-select-sm" aria-label=".form-select-sm example">
+                            <option selected></option>
+                            <option value="1">Capital</option>
+                            <option value="2">Alternative</option>
+                        </select>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <h5>Bobot Kepentingan Sub-Kriteria</h5>
+        <table class="tabel_subkriteria">
+            <tbody>
+                <tr>
+                    <td>
+                        <select class="form-select form-select-sm" aria-label=".form-select-sm example">
+                            <option selected></option>
+                            <option value="1">Berat Produk</option>
+                            <option value="2">Berat Campuran</option>
+                        </select>
+                    </td>
+                    <td>
+                        <label for="customRange2" class="form-label"></label>
+                        <input type="range" class="form-range" min="1" max="9" id="customRange2">
+                    </td>
+                    <td>
+                        <select class="form-select form-select-sm" aria-label=".form-select-sm example">
+                            <option selected></option>
+                            <option value="1">Berat Produk</option>
+                            <option value="2">Berat Campuran</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <select class="form-select form-select-sm" aria-label=".form-select-sm example">
+                            <option selected></option>
+                            <option value="1">Berat Produk</option>
+                            <option value="2">Panjang Produk</option>
+                        </select>
+                    </td>
+                    <td>
+                        <label for="customRange2" class="form-label"></label>
+                        <input type="range" class="form-range" min="1" max="9" id="customRange2">
+                    </td>
+                    <td>
+                        <select class="form-select form-select-sm" aria-label=".form-select-sm example">
+                            <option selected></option>
+                            <option value="1">Berat Produk</option>
+                            <option value="2">Panjang Produk</option>
+                        </select>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </div>
+</div>
+{% endblock %}

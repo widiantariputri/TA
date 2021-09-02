@@ -9,7 +9,7 @@ import pandas as pd
 class SAW:
     def __init__(self):
         # constant
-        BOBOT_ALT = pd.read_csv('DATASET/TEST.csv')
+        BOBOT_ALT = pd.read_csv('DATASET/CSV.csv')
         BOBOT_CRITERIA = [3,2,3,4,4,4,3]
 
         self.bobot_alt, self.bobot_raw = self.clean_data(BOBOT_ALT)
@@ -18,7 +18,7 @@ class SAW:
         min_max = self.get_min_max(self.cost_benefit,self.bobot_alt)
         norm_mat = self.normalize(self.bobot_alt, min_max, self.cost_benefit)
         self.total_weight = self.get_total_weight(BOBOT_CRITERIA,norm_mat)
-        self.total_weight = self.total_weight.reshape(6,1)
+        self.total_weight = self.total_weight.reshape(self.total_weight.shape[0],1)
 
         self.bobot_alt = np.append(self.bobot_raw, self.total_weight, axis=1)
 
@@ -41,7 +41,7 @@ class SAW:
             Cleaning dataset
             receive pandas dataframe as a parameter
         '''
-        bobot =  np.array(bobot[bobot['JENIS'] == 'SILVER BRACELETS'])
+        bobot =  np.array(bobot[bobot['JENIS BARANG'] == 'SILVER BRACELETS'])
         return bobot[:,2:], bobot
 
 

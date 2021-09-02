@@ -4,13 +4,14 @@ from datetime import datetime
 from ANP import ANP
 from SAW import SAW
 import re
-from flask import render_template, request, redirect, url_for, flash
+from flask import render_template, request, redirect, url_for, flash, session
 from werkzeug.utils import secure_filename
 import os
+import pandas as pd
+import numpy as np
 
 UPLOAD_FOLDER = './UPLOADS'
 ALLOWED_EXTENSIONS = ['csv']
-
 
 
 app = Flask(__name__)
@@ -27,9 +28,21 @@ def home():
 
 @app.route("/bobot")
 def bot_kepentingan():
-    return render_template("bobot.html")
 
-@app.route("/upload", methods=['GET', 'POST'])
+    dataset_name = session.get('dataset')
+    dataset = pd.read_csv('UPLOADS/'+str(dataset_name))
+    subkriteria = np.array(dataset.columns[2:])
+
+    # kriteria yg tersedia
+    kriteria = ['Measurable', 'Capital', 'Alternative']
+
+    # subkriteria didapat dari dataset
+
+    return render_template("bobot.html", context={'kriteria': kriteria,
+                                                  'subkriteria': subkriteria})
+
+
+@ app.route("/upload", methods=['GET', 'POST'])
 def upload_data():
     if request.method == 'POST':
         # check jika file berhasil diraih
@@ -41,16 +54,19 @@ def upload_data():
             if allowed_file(fi.filename):
                 print('allowed')
                 filename = secure_filename(fi.filename)
+                context = {
+                    'filename': filename}
                 fi.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-                return redirect(url_for('hasil_pencarian', filename=filename))
-                print('sukses')
+                session['dataset'] = filename
+                return redirect(url_for('bot_kepentingan'))
             else:
-                flash('Extension is not supported' )
+                flash('Extension is not supported')
                 return redirect(request.url)
     print('gagal')
     return render_template(
         "upload.html"
     )
+
 
 def allowed_file(filename):
     if not '.' in filename:
@@ -63,14 +79,12 @@ def allowed_file(filename):
         return False
 
 
-
-
-@app.route("/hasil/<filename>", methods=['GET', 'POST'])
+@ app.route("/hasil/<filename>", methods=['GET', 'POST'])
 def hasil_pencarian(filename):
     DDIR = 'UPLOADS/'+filename
     SURVEY_DATA = 'DATASET/ANOTHER_RESPONDEN.csv'
 
-    anp = ANP(DDIR,SURVEY_DATA)
+    anp = ANP(DDIR, SURVEY_DATA)
 
     gem = anp.get_gm()
     cluster_gm = anp.get_cluster_gm()
@@ -81,11 +95,9 @@ def hasil_pencarian(filename):
 
     lambda_max = anp.get_lambda(eigen_vector, anp_sum_col)
 
-    anp_ci, anp_cr = anp.get_ci_cr( lambda_max, matrix)
+    anp_ci, anp_cr = anp.get_ci_cr(lambda_max, matrix)
 
     eigen_alter = anp.get_eigen_alter()
-
-
 
     # the 'cluster' part-------
 
@@ -95,11 +107,10 @@ def hasil_pencarian(filename):
 
     cluster_lambda_max = anp.get_lambda(cluster_eigen_vector, cluster_sum_col)
 
-    cluster_ci, cluster_cr = anp.get_ci_cr( cluster_lambda_max, cluster_mat)
+    cluster_ci, cluster_cr = anp.get_ci_cr(cluster_lambda_max, cluster_mat)
 
     # unweighted matrix
-    unweighted_mat = anp.get_unweighted_mat(matrix,eigen_alter)
-
+    unweighted_mat = anp.get_unweighted_mat(matrix, eigen_alter)
 
     saw = SAW()
     hasil_saw = saw.get_hasil()

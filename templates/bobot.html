@@ -22,6 +22,7 @@ endblock %} {% block content %}
             <select
               class="form-select form-select-sm"
               aria-label=".form-select-sm example"
+              name="bobot_kriteria_from[]"
             >
               <option selected value="{{ k }}">
                 {{ k }}
@@ -41,7 +42,7 @@ endblock %} {% block content %}
               step="1"
               value="0"
               id="bobot-range"
-              name='{{ kriteria }}'
+              name='kriteria-list[]'
               
             />
           </td>
@@ -49,8 +50,9 @@ endblock %} {% block content %}
             <select
               class="form-select form-select-sm"
               aria-label=".form-select-sm example"
+              name="bobot_kriteria_to[]"
             >
-              <option selected>
+            <option selected value="{{k}}">
                 {{ k }}
               </option>
               {% for kriteria in context.kriteria %} {% if kriteria != k %}
@@ -74,6 +76,7 @@ endblock %} {% block content %}
                 <select
                   class="form-select form-select-sm"
                   aria-label=".form-select-sm example"
+                  name="sub_from[]"
                 >
                   <option selected value="{{ s }}">
                     {{ s }}
@@ -92,15 +95,16 @@ endblock %} {% block content %}
                   max="9"
                   step="1"
                   id="customRange2"
-                  name="{{ sub }}"
+                  name="sub-list[]"
                 />
               </td>
               <td>
                 <select
                   class="form-select form-select-sm"
                   aria-label=".form-select-sm example"
+                  name="sub_to[]"
                 >
-                  <option selected>
+                <option selected value="{{s}}">
                     {{ s }}
                   </option>
                   {% for sub in context.subkriteria %} {% if sub != s %}

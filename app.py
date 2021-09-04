@@ -58,8 +58,6 @@ def bot_kepentingan():
         bobot_form['from'] = bobot_from
         bobot_form['to'] = bobot_to
 
-        print(bobot_form)
-
         sub_form = dict()
         sub_form['from'] = sub_from
         sub_form['to'] = sub_to

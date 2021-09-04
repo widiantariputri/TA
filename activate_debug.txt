@@ -1,0 +1,12 @@
+******
+SETTING DEVELOPMENT FOR DEBUG
+******
+
+
+=================================
+Run the code below in your 
+favorite terminal
+=================================
+
+export FLASK_ENV=development
+$ flask run

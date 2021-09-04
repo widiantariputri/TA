@@ -1,39 +1,22 @@
-{% extends 'base.html' %}
-{% block title %}
-Sistem Rekomendasi ANP-SAW
-{% endblock %}
-
-{% block content %}
+{% extends 'base.html' %} {% block title %} Sistem Rekomendasi ANP-SAW {%
+endblock %} {% block content %}
 <div class="container">
-    <div class="px-4 pt-5 my-5 text-center">
-        <h1 class="display-5 mb-4 fw-bold">Hasil Pencarian</h1>
-        <div class="col-lg-6 mx-auto">
-            <p class="lead">Rekomendasi kerajinan perak terdiri atas</p>
-        </div>
+  <div class="px-4 pt-5 my-5 text-center">
+    <h1 class="display-5 mb-4 fw-bold">Pencarian</h1>
+    <div class="col-lg-6 mx-auto">
+      <p class="lead">Rekomendasi kerajinan perak terdiri atas</p>
     </div>
-    <table class="table">
-        <thead class="table-light">
-            <th> No. </th>
-            {% for key in hasil['0'].keys() %}
-            <th>{{ key }} </th>
-            {% endfor %}
-        </thead>
-        <tbody>
-            {% for key, val in hasil.items() %}
-            <tr>
-                <td>
-                    {{key}}
-                </td>
-                {% for item in val.values() %}
-                    <td>
-                    {{item }}
-                    </td>
-                {% endfor %}
-
-            </tr>
-            {% endfor %}
-
-        </tbody>
-    </table>
+  </div>
+  <table class="table">
+    <thead class="table-light">
+      <th>No.</th>
+    </thead>
+    <tbody>
+      <tr>
+        <td>hello</td>
+      </tr>
+    </tbody>
+  </table>
 </div>
 {% endblock %}
+

@@ -12,43 +12,44 @@ import numpy as np
 class ANP:
     def __init__(self, ddir, survey_data):
         self.criteria_value = {
-                1 : 'Sama Penting',
-                2 : 'Nilai Tengah',
-                3 : 'Sedikit Lebih Penting',
-                4 : 'Nilai Tengah',
-                5 : 'Lebih Penting',
-                6 : 'Nilai Tengah',
-                7 : 'Sangat Penting',
-                8 : 'Nilai Tengah',
-                9 : 'Mutlak Penting'
+            1: 'Sama Penting',
+            2: 'Nilai Tengah',
+            3: 'Sedikit Lebih Penting',
+            4: 'Nilai Tengah',
+            5: 'Lebih Penting',
+            6: 'Nilai Tengah',
+            7: 'Sangat Penting',
+            8: 'Nilai Tengah',
+            9: 'Mutlak Penting'
         }
         self.random_index = {
-            1 : 0,
-            2 : 0,
-            3 : 0.58,
-            4 : 0.9,
-            5 : 1.12,
-            6 : 1.24,
-            7 : 1.32,
-            8 : 1.21,
-            9 : 1.45,
-            10 : 1.49
+            1: 0,
+            2: 0,
+            3: 0.58,
+            4: 0.9,
+            5: 1.12,
+            6: 1.24,
+            7: 1.32,
+            8: 1.21,
+            9: 1.45,
+            10: 1.49
         }
         self.attr = 'SILVER BRACELETS'
         self.dataset = self.readCleanData(ddir)
-        self.geo_mean, self.cluster_data, self.cluster_gm = self.calc_geo_mean(survey_data)
+        self.geo_mean, self.cluster_data, self.cluster_gm = self.calc_geo_mean(
+            survey_data)
 
-    def contain_zero(self,sub):
+    def contain_zero(self, sub):
         zero_count = 0
         for el in sub:
             if el == '':
-                zero_count+=1
+                zero_count += 1
         if zero_count > 0:
             return True
         else:
             return False
 
-    def readCleanData(self,ddir):
+    def readCleanData(self, ddir):
         data = list()
         cl_data = list()
         with open(ddir, 'r') as csv_file:
@@ -61,15 +62,13 @@ class ANP:
                 if da[0] == self.attr:
                     cl_data.append(da[0:])
         cl_data = np.array(cl_data)
-        
 
         return cl_data
-
 
     def get_dataset(self):
         return self.dataset
 
-    def calc_geo_mean(self,survey):
+    def calc_geo_mean(self, survey):
         survey_list = list()
         gm = dict()
         cluster_gm_dict = dict()
@@ -78,19 +77,22 @@ class ANP:
             for survey in survey_data:
                 survey_list.append(survey)
         survey_list = np.array(survey_list)
+        print(f'survey_list : {survey_list}')
 
         # splitting the data into cluster matrix
         cluster_data = survey_list[-3:]
         survey_list = survey_list[:-3]
 
-        survey_label = survey_list[1:,0]
-        cluster_label = cluster_data[:,0]
+        survey_label = survey_list[1:, 0]
+        cluster_label = cluster_data[:, 0]
 
-        survey_value = np.asfarray(survey_list[1:,1:], int)
-        cluster_value = np.asfarray(cluster_data[:,1:], int)
+        survey_value = np.asfarray(survey_list[1:, 1:], int)
+        cluster_value = np.asfarray(cluster_data[:, 1:], int)
 
-        survey_gm = np.power(np.prod(survey_value, axis=1),(1./len(survey_value[0])))
-        cluster_gm = np.power(np.prod(cluster_value, axis=1),(1./len(cluster_value[0])))
+        survey_gm = np.power(np.prod(survey_value, axis=1),
+                             (1./len(survey_value[0])))
+        cluster_gm = np.power(np.prod(cluster_value, axis=1),
+                              (1./len(cluster_value[0])))
 
         for i in range(0, len(survey_label)):
             gm[survey_label[i]] = survey_gm[i]
@@ -106,7 +108,6 @@ class ANP:
     def get_cluster_gm(self):
         return self.cluster_gm
 
-
     def get_matrix(self):
         val_ = list()
         val_index = 0
@@ -114,17 +115,16 @@ class ANP:
             val_.append(value)
         iden_mat = np.identity(7)
 
-
         for i in range(0, len(iden_mat)):
             for j in range(0, len(iden_mat[i])):
-                if i!=j:
+                if i != j:
                     if i > j:
                         iden_mat[i][j] = 1/iden_mat[j][i]
                         # iden_mat[i][j] = 21
-                    else :
-                        iden_mat[i][j] = val_[((val_index%21))]
+                    else:
+                        iden_mat[i][j] = val_[((val_index % 21))]
                         # iden_mat[i][j]= 25
-                        val_index+=1
+                        val_index += 1
         return iden_mat
 
     def get_cluster_matrix(self):
@@ -136,39 +136,38 @@ class ANP:
 
         for i in range(0, len(iden_mat)):
             for j in range(0, len(iden_mat[i])):
-                if i!=j:
+                if i != j:
                     if i > j:
                         iden_mat[i][j] = 1/iden_mat[j][i]
                         # iden_mat[i][j] = 21
-                    else :
-                        iden_mat[i][j] = val_[((val_index%21))]
+                    else:
+                        iden_mat[i][j] = val_[((val_index % 21))]
                         # iden_mat[i][j]= 25
-                        val_index+=1
+                        val_index += 1
         return iden_mat
-
 
     def get_eigen(self, mat):
         sum_of_col = np.sum(mat, axis=0)
         eigen_vector = np.zeros_like(sum_of_col)
         for i in range(0, mat.shape[0]):
-            eigen_vector[i] = np.sum(np.divide(mat[i], sum_of_col), axis=0)/mat.shape[0]
+            eigen_vector[i] = np.sum(
+                np.divide(mat[i], sum_of_col), axis=0)/mat.shape[0]
         return eigen_vector, sum_of_col
 
     def get_eigen_alter(self):
         eigen_alter = list()
         trim_eigen = list()
-        trim_dataset = self.dataset[:,2:].astype(float)
-
+        trim_dataset = self.dataset[:, 2:].astype(float)
 
         for i in range(0, len(trim_dataset[0])):
-            trim_trim = trim_dataset[:,i]
+            trim_trim = trim_dataset[:, i]
             trim_sum = np.sum(trim_trim)
             trim_eigen.append(trim_sum)
         # print(trim_eigen)
         trim_eigen = np.array(trim_eigen)
 
         for i in range(0, len(self.dataset)):
-            head_ = self.dataset[i,2:].astype(float)
+            head_ = self.dataset[i, 2:].astype(float)
             eigen_alter.append(np.divide(head_, trim_eigen))
 
         return np.array(eigen_alter)
@@ -176,12 +175,12 @@ class ANP:
     def get_lambda(self, eigen, _sum):
         return np.sum(np.multiply(eigen, _sum))
 
-    def get_ci_cr(self,l_max, mat):
+    def get_ci_cr(self, l_max, mat):
         ci = (l_max - len(mat))/(len(mat)-1)
         cr = ci/self.random_index[len(mat)]
         return ci, cr
 
-    def get_unweighted_mat(self,mat, alter):
+    def get_unweighted_mat(self, mat, alter):
         # buat matrix besar berukuran 14
         mat_size = len(mat)+len(alter)
         big_mat = np.zeros((mat_size, mat_size))
@@ -194,10 +193,8 @@ class ANP:
             for j in range(0, len(alter[0])):
                 big_mat[i][j] = alter[i-7][j]
 
-
         for i in range(0, len(big_mat)):
             for j in range(8, len(big_mat)):
                 # 0,8 ->8, 0
                 big_mat[i][j] = 1/big_mat[j][i]
         print(f'big :\n{big_mat}')
-

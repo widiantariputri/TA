@@ -4,7 +4,10 @@ from SAW import *
 # from ANP import *
 from ayutANP import ANP
 from itertools import combinations
-from Kriteria import Kriteria
+from Kriteria import Kriteria, Alternative
+
+# array untuk testing
+from ArrayTest import M_predefined_array, C_predefined_array, A_predefined_array
 
 '''
 
@@ -20,24 +23,32 @@ def main():
 
     # dictionary dari bobot dan subkriteria
     # call the ANP object
-
     M = Kriteria(['KT', 'BBB', 'HP'])
     C = Kriteria(['BP', 'BBC', 'PP', 'JS'])
     kriteria = (M, C)
 
-    print('-----')
-    print('Mengisi sub kriteria M')
-    print('-----')
+    # ALTERNATIF
+    A = Alternative()
+    A.set_value(A_predefined_array)
+    print(A.identitas)
 
-    M.fill(C)
+    # MENGISI ARRAY JANGAN DIHAPUS
+    # print('-----')
+    # print('Mengisi sub kriteria M')
+    # print('-----')
 
-    print('-----')
-    print('Mengisi sub kriteria M')
-    print('-----')
-    C.fill(M)
+    # M.fill(C)
+
+    # print('-----')
+    # print('Mengisi sub kriteria M')
+    # print('-----')
+    # C.fill(M)
+
+    # MENJALANKAN PROGRAM DENGAN ARRAY YANG UDH ADA
+    M.set_value(M_predefined_array)
+    C.set_value(C_predefined_array)
 
     # mulai ANP
-
     anp = ANP(measurable=M, capital=C, dataset=DDIR)
     anp.begin()
 

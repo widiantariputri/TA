@@ -52,6 +52,10 @@ class Kriteria(object):
             all_kriteria.append(SubKriteria(s))
         return all_kriteria
 
+    def set_value(self, target):
+        for i in range(0, len(self.kriteria_all)):
+            self.kriteria_all[i].value = target[i]
+
     def fill(self, obj):
         '''
             Menanyakan kepada user
@@ -80,3 +84,24 @@ class Kriteria(object):
                     identitas[j][i] = 1/value
 
                 print(f'Matriks identitas:\n{identitas}')
+
+
+class Alternative(object):
+    def __init__(self):
+        self.identitas = np.identity(2)
+        self.kode = list()
+
+    def set_value(self, alter=None):
+        if alter:
+            self.identitas = alter
+        else:
+            opsi = ['M', 'A']
+            from_ = str(input('Dari : ')).upper()
+            to_ = str(input('Terhadap : ')).upper()
+            value = int(input('Nilai : '))
+            i = opsi.index(from_)
+            j = opsi.index(to_)
+
+            if i != j:
+                self.identitas[i][j] = value
+                self.identitas[j][i] = 1/value

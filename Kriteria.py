@@ -53,11 +53,19 @@ class Kriteria(object):
         return all_kriteria
 
     def fill(self, obj):
+        '''
+            Menanyakan kepada user
+            Perulangan dari set kriteria ()
+            - Tanya user sub kriteria mana yang ingin diisi
+            - tampilkan opsi pengisian(pasti untuk C)
+            terhadap sub kriteria C
+            track index(misal 0), terhadap index(misal: 1)
+            maka identitas[0, 1] == nilai input dan identitas[1, 0] == 1/nilai input
+        '''
         for item in self.kriteria_all:
-            print(f'Kita lagi di {item.name}')
             n = len(obj.subkriteria_list)
+            identitas = np.identity(n)
             n = int((pow(n, 2)-n)/2)
-            print(n)
             for i in range(0, n):
                 # mengisi matriks
                 print(f'Opsi: {obj.subkriteria_list}')

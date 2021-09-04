@@ -25,14 +25,6 @@ def main():
     C = Kriteria(['BP', 'BBC', 'PP', 'JS'])
     kriteria = (M, C)
 
-    # Menanyakan kepada user
-    # 1. Perulangan dari set kriteria ()
-    # 2. - Tanya user sub kriteria mana yang ingin diisi
-    #    - tampilkan opsi pengisian (pasti untuk C)
-    #    - tanya terhadap sub kriteria C
-    #    - track index (misal 0), terhadap index (misal : 1)
-    #    - maka identitas[0,1] == nilai input dan identitas [1,0] == 1/nilai input
-
     print('-----')
     print('Mengisi sub kriteria M')
     print('-----')
@@ -43,6 +35,11 @@ def main():
     print('Mengisi sub kriteria M')
     print('-----')
     C.fill(M)
+
+    # mulai ANP
+
+    anp = ANP(measurable=M, capital=C, dataset=DDIR)
+    anp.begin()
 
     '''
 

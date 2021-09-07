@@ -54,3 +54,18 @@ js = np.array(
 
 M_predefined_array = [kt, bbb, hp]
 C_predefined_array = [bp, bbc, pp, js]
+
+Criteria_range_value = [
+    np.array([
+        [1, 0.33],
+        [3, 1]
+    ]),
+    np.array([
+        [1, 5],
+        [0.2, 1]
+    ]),
+    np.array([
+        [1, 0.17],
+        [6, 1]
+    ]),
+]

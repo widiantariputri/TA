@@ -36,6 +36,11 @@ class SubKriteria(object):
 
 class Kriteria(object):
     def __init__(self, subkriteria_list):
+        '''
+        self.subrkteria_list = list dari subkriteria
+        self.kriteria_all = mengisi nilai sub kriteria pada kriteria
+
+        '''
         self.subkriteria_list = subkriteria_list
 
         self.kriteria_all = self.get_sub_criteria(self.subkriteria_list)
@@ -53,6 +58,10 @@ class Kriteria(object):
         return all_kriteria
 
     def set_value(self, target):
+        '''
+        Mengisi nilai pada kriteria
+
+        '''
         for i in range(0, len(self.kriteria_all)):
             self.kriteria_all[i].value = target[i]
 

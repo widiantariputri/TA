@@ -21,7 +21,8 @@ class ANP(object):
         self.kri_eigen_vector = self.get_eigen(self.range)
         self.kri_all = self.get_eigen_arr(self.kri_eigen_vector)
         self.subkriteria_eigen = self.get_sub_eigen((self.M, self.C))
-        print(self.subkriteria_eigen)
+        self.atribut_eigen = self.get_atr_eigen(self.dataset)
+        print(self.atribut_eigen)
 
     def get_sub_eigen(self, subs) -> list:
         '''
@@ -97,3 +98,31 @@ class ANP(object):
         zero_identity[2][0] = vector[2][1]
 
         return zero_identity
+
+    def read_dataset(self, data):
+        '''
+        Untuk read data menggunakan pandas
+        Params : Lokasi data
+        Return : Dataframe
+        '''
+        dataset = pd.read_csv(data)
+        # cleaning process belum dilakukan
+        return dataset
+
+    def get_atr_eigen(self, data: pd.DataFrame) -> pd.DataFrame:
+        '''
+        Membuat eigen dari atribut
+        Params : Data : Dataset
+        Return : Dataframe
+        '''
+        dataset = self.read_dataset(data)
+        eigen_atr = pd.DataFrame()
+
+        # Supaya engga memasukkan kode
+        dataset_columns = dataset.columns[2:]
+
+        for col in dataset_columns:
+            col_sum = dataset[col].sum()
+            eigen_atr[f'{col} Eigen Vector'] = dataset[col] / col_sum
+
+        return eigen_atr

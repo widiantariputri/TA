@@ -57,7 +57,7 @@ def assign_criteria_range(fr, to, val, arr):
 
 
 def main():
-    DDIR = 'DATASET/CSV.csv'
+    DDIR = 'DATASET/TEST.csv'
 
     # dictionary dari bobot dan subkriteria
     # call the ANP object

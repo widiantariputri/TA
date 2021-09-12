@@ -1,4 +1,4 @@
 # TODO LIST
 
 [x] Nilai eigen sub karakteristik
-[ ] Nilai eigen alternatif
+[x] Nilai eigen alternatif

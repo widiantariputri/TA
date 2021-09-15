@@ -21,8 +21,12 @@ class ANP(object):
         self.kri_eigen_vector = self.get_eigen(self.range)
         self.kri_all = self.get_eigen_arr(self.kri_eigen_vector)
         self.subkriteria_eigen = self.get_sub_eigen((self.M, self.C))
-        self.atribut_eigen = self.get_atr_eigen(self.dataset)
-        print(self.atribut_eigen)
+        self.atribut_eigen = self.get_atr_eigen(self.dataset).fillna(0)
+        self.atribut_transpose = np.array(self.atribut_eigen.T)
+
+        print(self.kri_all)
+        for item in self.C.kriteria_all:
+            print(item.value)
 
     def get_sub_eigen(self, subs) -> list:
         '''
@@ -106,6 +110,8 @@ class ANP(object):
         Return : Dataframe
         '''
         dataset = pd.read_csv(data)
+        dataset = dataset[dataset['JENIS'] == 'SILVER BRACELETS']
+
         # cleaning process belum dilakukan
         return dataset
 

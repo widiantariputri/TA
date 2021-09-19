@@ -22,11 +22,40 @@ class ANP(object):
         self.kri_all = self.get_eigen_arr(self.kri_eigen_vector)
         self.subkriteria_eigen = self.get_sub_eigen((self.M, self.C))
         self.atribut_eigen = self.get_atr_eigen(self.dataset).fillna(0)
-        self.atribut_transpose = np.array(self.atribut_eigen.T)
+        # self.atribut_transpose = np.array(self.atribut_eigen.T)
+        self.atribut_transpose = self.atribut_eigen.transpose()
 
+        print('matrix eigen MCA')
         print(self.kri_all)
-        for item in self.C.kriteria_all:
-            print(item.value)
+        # print('sub-kriteria')
+        # print(self.subkriteria_eigen)
+        # print('alternatif')
+        # print(self.atribut_eigen)
+        # print('alternatif transpose')
+        # print(self.atribut_transpose)
+        # for item in self.C.kriteria_all:
+        #     print(item.value)
+
+        self.sub_CM = self.get_sub_eigen([self.M])
+        self.sub_MC = self.get_sub_eigen([self.C])
+        self.atribut_M = self.atribut_eigen[['KT Eigen Vector', 'BBB Eigen Vector', 'HP Eigen Vector']]
+        self.atribut_C = self.atribut_eigen[['BP Eigen Vector', 'BBC Eigen Vector', 'PP Eigen Vector', 'JS Eigen Vector']]
+        self.atribut_transpose_M = self.atribut_transpose.iloc[:4]
+        self.atribut_transpose_C = self.atribut_transpose.iloc[4:]
+
+        self.w_sub_CM = self.get_weighted(self.sub_CM, self.kri_all[1][0])
+        self.w_sub_MC = self.get_weighted(self.sub_MC, self.kri_all[0][1])
+        self.w_atribut_M = self.get_weighted(self.atribut_M, self.kri_all[2][0])
+        self.w_atribut_C = self.get_weighted(self.atribut_C, self.kri_all[2][1])
+        self.w_atribut_TM = self.get_weighted(self.atribut_transpose_M, self.kri_all[0][2])
+        self.w_atribut_TC = self.get_weighted(self.atribut_transpose_C, self.kri_all[1][2])
+        
+        print(self.w_sub_CM)
+        print(self.w_sub_MC)
+        print(self.w_atribut_C)
+        print(self.w_atribut_M)
+        print(self.w_atribut_TC)
+        print(self.w_atribut_TM)
 
     def get_sub_eigen(self, subs) -> list:
         '''
@@ -132,3 +161,9 @@ class ANP(object):
             eigen_atr[f'{col} Eigen Vector'] = dataset[col] / col_sum
 
         return eigen_atr
+
+    def get_weighted(self, sub_matrix, scalar):
+        if(type(sub_matrix) != np.ndarray):
+            sub_matrix = np.array(sub_matrix)
+        weighted = sub_matrix * scalar
+        return weighted

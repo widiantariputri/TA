@@ -27,14 +27,12 @@ class ANP(object):
 
         print('matrix eigen MCA')
         print(self.kri_all)
-        # print('sub-kriteria')
-        # print(self.subkriteria_eigen)
-        # print('alternatif')
-        # print(self.atribut_eigen)
-        # print('alternatif transpose')
-        # print(self.atribut_transpose)
-        # for item in self.C.kriteria_all:
-        #     print(item.value)
+        print('sub-kriteria')
+        print(self.subkriteria_eigen)
+        print('alternatif')
+        print(self.atribut_eigen)
+        print('alternatif transpose')
+        print(self.atribut_transpose)
 
         self.sub_CM = self.get_sub_eigen([self.M])
         self.sub_MC = self.get_sub_eigen([self.C])
